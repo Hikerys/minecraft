@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hikerys</title>
+  <meta name="description" content="Моды Hikerys — BoomBow и LocalRTP.">
+  <link rel="icon" href="assets/boombow.webp" type="image/webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #12110f;
+      --panel: #1a1916;
+      --ink: #ece8df;
+      --muted: #9a9488;
+      --line: #2e2b26;
+      --modrinth: #1bd96a;
+      --curseforge: #f16436;
+      --support: #e8c36a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    header, footer, main {
+      width: min(1080px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang {
+      display: flex;
+      border: 1px solid var(--line);
+    }
+
+    .lang button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      padding: 7px 10px;
+      cursor: pointer;
+    }
+
+    .lang button[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .support {
+      padding: 8px 14px;
+      background: var(--support);
+      color: #1a1408;
+      text-decoration: none;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.9fr) 1.4fr;
+      gap: 36px;
+      align-content: center;
+      padding: 36px 0;
+    }
+
+    .intro h1 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(34px, 4vw, 46px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .intro p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 28em;
+    }
+
+    .mods {
+      display: grid;
+      gap: 12px;
+    }
+
+    article {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 16px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    .icon {
+      width: 72px;
+      height: 72px;
+      image-rendering: pixelated;
+    }
+
+    h2 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    article p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 4px 0 12px;
+    }
+
+    .downloads { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .downloads a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      background: #12110f;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+    }
+
+    .downloads a:hover { border-color: var(--ink); }
+
+    .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .dot.mr { background: var(--modrinth); }
+    .dot.cf { background: var(--curseforge); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 0 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+        align-content: start;
+      }
+      header, footer, main { width: min(1080px, calc(100% - 32px)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">Hikerys</div>
+      <div class="actions">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        </div>
+        <a class="support" href="https://www.donationalerts.com/r/hikerys" target="_blank" rel="noopener noreferrer" data-i18n="support">Поддержать</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <h1 data-i18n="title">Моды</h1>
+        <p data-i18n="intro">Привет. Тут мои моды — ну, почти мои. Их собрал ИИ, и этот сайт тоже: я не программист 😅</p>
+      </section>
+
+      <section class="mods">
+        <article>
+          <img class="icon" src="assets/boombow.webp" alt="" width="72" height="72">
+          <div>
+            <h2>BoomBow</h2>
+            <p data-i18n="boombow">Стреляй ТНТ из лука и арбалета! Держи ТНТ в левой руке, натяни оружие — и будет взрыв!</p>
+            <div class="downloads">
+              <a href="https://modrinth.com/mod/boom-bow" target="_blank" rel="noopener noreferrer"><span class="dot mr"></span>Modrinth</a>
+              <a href="https://www.curseforge.com/minecraft/mc-mods/boombow" target="_blank" rel="noopener noreferrer"><span class="dot cf"></span>CurseForge</a>
+            </div>
+          </div>
+        </article>
+        <article>
+          <img class="icon" src="assets/localrtp.webp" alt="" width="72" height="72">
+          <div>
+            <h2>LocalRTP</h2>
+            <p data-i18n="localrtp">Случайный телепорт относительно позиции игрока. Напиши /rtp, дождись отсчёта — и окажешься в безопасной точке.</p>
+            <div class="downloads">
+              <a href="https://modrinth.com/mod/localrtp" target="_blank" rel="noopener noreferrer"><span class="dot mr"></span>Modrinth</a>
+              <a href="https://www.curseforge.com/minecraft/mc-mods/localrtp" target="_blank" rel="noopener noreferrer"><span class="dot cf"></span>CurseForge</a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>Hikerys</span>
+      <a href="https://www.donationalerts.com/r/hikerys" target="_blank" rel="noopener noreferrer" data-i18n="support">Поддержать</a>
+    </footer>
+  </div>
+
+  <script>
+    const text = {
+      ru: {
+        title: "Моды",
+        intro: "Привет. Тут мои моды — ну, почти мои. Их собрал ИИ, и этот сайт тоже: я не программист 😅",
+        support: "Поддержать",
+        boombow: "Стреляй ТНТ из лука и арбалета! Держи ТНТ в левой руке, натяни оружие — и будет взрыв!",
+        localrtp: "Случайный телепорт относительно позиции игрока. Напиши /rtp, дождись отсчёта — и окажешься в безопасной точке."
+      },
+      en: {
+        title: "Mods",
+        intro: "Hi. These are my mods — well, almost. An AI put them together, and this site too. I'm not a programmer 😅",
+        support: "Support",
+        boombow: "Shoot TNT from bows and crossbows! Hold TNT in your offhand, draw your weapon, and watch things go boom!",
+        localrtp: "Random teleport relative to player position. Type /rtp, wait out the countdown, and land somewhere safe around you."
+      }
+    };
+
+    const langButtons = document.querySelectorAll("[data-lang]");
+
+    function setLang(lang) {
+      const pack = text[lang] || text.ru;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        if (pack[key]) node.textContent = pack[key];
+      });
+      langButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
+      });
+      localStorage.setItem("hikerys-lang", lang);
+    }
+
+    langButtons.forEach((button) => button.addEventListener("click", () => setLang(button.dataset.lang)));
+    const saved = localStorage.getItem("hikerys-lang");
+    setLang(saved === "en" || saved === "ru" ? saved : "ru");
+  </script>
+</body>
+</html>
