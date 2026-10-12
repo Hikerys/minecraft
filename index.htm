@@ -267,6 +267,11 @@
       }
     };
 
+    const supportLinks = {
+      ru: "https://tips.tips/ru/000487687",
+      en: "https://tips.tips/000487687"
+    };
+
     const langButtons = document.querySelectorAll("[data-lang]");
 
     function setLang(lang) {
@@ -275,6 +280,10 @@
       document.querySelectorAll("[data-i18n]").forEach((node) => {
         const key = node.getAttribute("data-i18n");
         if (pack[key]) node.textContent = pack[key];
+      });
+      const supportUrl = supportLinks[lang] || supportLinks.ru;
+      document.querySelectorAll('a[data-i18n="support"]').forEach((link) => {
+        link.href = supportUrl;
       });
       langButtons.forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
